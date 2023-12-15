@@ -9,9 +9,11 @@
                 Discover a world of automotive excellence at Car Hub Market, your one-stop destination for premium cars.
                 Explore a curated collection of top-notch brands and find the perfect vehicle that matches your style and
                 preferences.
-                Whether you're in search of luxury, performance, or reliability, our extensive inventory has something for everyone.
-                Our commitment to quality and customer satisfaction ensures a seamless car-buying experience. Start your journey
-                with Car Hub Market today!
+                <p>
+                    Whether you're in search of luxury, performance, or reliability, our extensive inventory has something for everyone.
+                    Our commitment to quality and customer satisfaction ensures a seamless car-buying experience. Start your journey
+                    with Car Hub Market today!
+                </p>
             </p>
         </div>
         <div class="col-6">
@@ -42,14 +44,14 @@
                 <div class="col-md-4 mb-3">
                     <div class="card">
                         {% if car.image %}
-                        <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.name }}">
+                        <img style="height: 200px; object-fit: cover;" src="{{ car.image.url }}" class="card-img-top" alt="{{ car.name }}">
                         {% else %}
                         <p>No Image Available</p>
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title"><a href="{% url 'car_detail' car.id %}">{{ car.name }}</a>
                                 </h5>
-                            <p class="card-text">{{ car.description }}</p>
+                            <p style="height: 100px;" class="card-text">{{ car.description|truncatewords:15 }}</p>
                             <p class="card-text">Price: ${{ car.price }}</p>
                             <p class="card-text">Brand: {{ car.brand.name }}</p>
                             <!-- <a href="#" class="btn btn-primary">Buy Now</a> -->
