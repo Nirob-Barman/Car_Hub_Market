@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container text-center">
+    <h1>Home</h1>
+    <p>Welcome to my website!</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Left side: Brand filter -->
+        <div class="col-md-3">
+            <h2>Brand Filter</h2>
+            {% for brand in brands %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="brand" id="{{ brand.slug }}" />
+                <label class="form-check-label" for="{{ brand.slug }}">
+                    <a href="{% url 'brands_filter' brand.name %}" class="text-decoration-none text-dark">{{ brand.name
+                        }}</a>
+                </label>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Right side: Brand-wise cars -->
+        <div class="col-md-9">
+            <h2>Car List</h2>
+            <div class="row">
+                {% for car in cars %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        <img src="{{ car.image.url }}" class="card-img-top" alt="{{ car.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ car.name }}</h5>
+                            <p class="card-text">{{ car.description }}</p>
+                            <p class="card-text">Price: ${{ car.price }}</p>
+                            <p class="card-text">Brand: {{ car.brand.name }}</p>
+                            <!-- Add other car details as needed -->
+                            <a href="#" class="btn btn-primary">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

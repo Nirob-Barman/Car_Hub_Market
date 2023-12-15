@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<form style="width: 50%; margin: auto;" action="" method="POST" novalidate>
+    {% if button_text == "Change Password" and title == "Change Your Password" %}
+    <h1 class="text-center">Change Your Password</h1>
+    {% elif button_text == "Change Password" and title == "Change Your Password without Old Password" %}
+    <h3 class="text-center">Change Your Password without Old Password</h3>
+    {% else %}
+    <h1 class="text-center">{{title}} Page</h1>
+    {% endif %}
+
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div style="width: 50%; margin: auto;" class="alert alert-danger alert-{{message.tags}} text-center" role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
+    {% csrf_token %}
+    <!-- {{form|crispy}} -->
+
+    <!-- {% for field in form %}
+    <div class="form-group">
+        {{field|as_crispy_field}}
+    </div>
+    {% endfor %} -->
+
+    {% for field in form %}
+    <div class="form-group">
+        {{field.label_tag}}
+        {{field}}
+        {{field.errors|striptags}}
+    </div>
+    {% endfor %}
+
+    <input class="btn {{button_class}} mt-2" type="submit" value="{{button_text}}">
+
+    {% if button_text == "Login" %}
+    <p class="text-center">Don't have an account? <a href="{% url 'signup' %}">Sign Up</a></p>
+    {% elif button_text == "Sign Up" %}
+    <p class="text-center">Already have an account? <a href="{% url 'login' %}">Login</a></p>
+    {% endif %}
+</form>
+
+{% endblock %}
