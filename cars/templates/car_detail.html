@@ -13,7 +13,7 @@
     {% endif %}
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 d-flex align-items-center justify-content-center">
             {% if car.image %}
             <img src="{{ car.image.url }}" alt="{{ car.name }} Image" class="img-fluid">
             {% else %}
@@ -45,7 +45,8 @@
         <div class="card-body border m-2">
             <h6 class="card-subtitle mb-2 text-muted">{{comment.created_on}}</h6>
             <p><b>{{comment.name}}</b></p>
-            <p><strong>Email:</strong> <a class="text-decoration-none" href="mailto:{{comment.email}}">{{comment.email}}</a></p>
+            <p><strong>Email:</strong> <a class="text-decoration-none"
+                    href="mailto:{{comment.email}}">{{comment.email}}</a></p>
             <p>{{comment.body}}</p>
         </div>
         {% endfor %}
@@ -57,7 +58,7 @@
                 <h1>Add Comment</h1>
                 {% csrf_token %}
                 {{comment_form | crispy}}
-    
+
                 <button class="btn btn-warning">Submit</button>
         </div>
     </div>
