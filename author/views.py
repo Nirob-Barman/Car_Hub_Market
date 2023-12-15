@@ -11,13 +11,14 @@ from django.contrib import messages
 def profile(request):
     if request.user.is_authenticated:
         bought_cars = Car.objects.filter(buyers=request.user)
-        print(bought_cars)
-        for car in bought_cars:
-            print(car.quantity)
+        # print(bought_cars)
+        # for car in bought_cars:
+        #     print(car.quantity)
 
         return render(request, 'profile.html', {'bought_cars': bought_cars})
     else:
         return redirect('login')
+
 
 def privacy_settings(request):
     if request.user.is_authenticated:
@@ -62,6 +63,8 @@ def user_login(request):
                         request, f"You are now logged in as {username}")
                     # return redirect('home')
                     return redirect('privacy_settings')
+                else:
+                    messages.error(request, 'Invalid username or password')
 
         else:
             form = AuthenticationForm()

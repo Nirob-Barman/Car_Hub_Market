@@ -1,8 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
-<div class="container text-center">
-    <h1>Home</h1>
-    <p>Welcome to my website!</p>
+<div class="container">
+    <div class="d-flex justify-content-center flex-wrap pt-3 align-items-center mb-3">
+        <div class="col-6">
+            <h1 class="h2 text-center">Welcome To Car Hub Market</h1>
+            <p>
+                Discover a world of automotive excellence at Car Hub Market, your one-stop destination for premium cars.
+                Explore a curated collection of top-notch brands and find the perfect vehicle that matches your style and
+                preferences.
+                Whether you're in search of luxury, performance, or reliability, our extensive inventory has something for everyone.
+                Our commitment to quality and customer satisfaction ensures a seamless car-buying experience. Start your journey
+                with Car Hub Market today!
+            </p>
+        </div>
+        <div class="col-6">
+            <img src="{% static 'header.jpg' %}" class="img-fluid" alt="">
+        </div>
+    </div>
 </div>
 
 <div class="container">

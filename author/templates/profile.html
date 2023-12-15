@@ -2,10 +2,8 @@
 {% block content %}
 
 <div class="container mt-5">
-    <h1>Profile</h1>
-
     {% if bought_cars %}
-    <h2>Bought Cars:</h2>
+    <h2 class="text-center">Bought Cars:</h2>
     <div class="row">
         {% for car in bought_cars %}
         <div class="col-md-6 mb-4">
@@ -27,7 +25,10 @@
         {% endfor %}
     </div>
     {% else %}
-    <p>No bought cars yet.</p>
+    <div style="height: 70vh;" class="d-flex justify-content-center align-items-center">
+        <h1>No bought cars yet.</h1>
+    </div>
+    
     {% endif %}
 </div>
 
