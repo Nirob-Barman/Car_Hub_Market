@@ -7,13 +7,16 @@
             <h1 class="h2 text-center">Welcome To Car Hub Market</h1>
             <p>
                 Discover a world of automotive excellence at Car Hub Market, your one-stop destination for premium cars.
-                Explore a curated collection of top-notch brands and find the perfect vehicle that matches your style and
+                Explore a curated collection of top-notch brands and find the perfect vehicle that matches your style
+                and
                 preferences.
-                <p>
-                    Whether you're in search of luxury, performance, or reliability, our extensive inventory has something for everyone.
-                    Our commitment to quality and customer satisfaction ensures a seamless car-buying experience. Start your journey
-                    with Car Hub Market today!
-                </p>
+            <p>
+                Whether you're in search of luxury, performance, or reliability, our extensive inventory has something
+                for everyone.
+                Our commitment to quality and customer satisfaction ensures a seamless car-buying experience. Start your
+                journey
+                with Car Hub Market today!
+            </p>
             </p>
         </div>
         <div class="col-6">
@@ -23,9 +26,31 @@
 </div>
 
 <div class="container">
+    <h2 class="text-center">Brand Filter</h2>
+    <div class="btn-group d-flex justify-content-center">
+        <a class="btn btn-primary text-decoration-none" href="{% url 'home' %}">All Brands</a>
+        {% for brand in brands %}
+        <a class="btn btn-primary text-decoration-none" href="{% url 'brands_filter' brand.name %}">{{ brand.name }}</a>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+        {% for brand in brands %}
+        <input type="radio" class="btn-check" name="btnradio" id="{{ brand.id }}" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="{{ brand.id }}">{{ brand.name }}</label>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+<div class="container">
     <div class="row">
         <!-- Left side: Brand filter -->
-        <div class="col-md-3">
+
+        <!-- <div class="col-md-3">
             <h2 class="text-center">Brand Filter</h2>
             <ul class="list-group">
                 <li class="list-group-item"><a class="text-decoration-none" href="{% url 'home' %}">All Brands</a></li>
@@ -34,27 +59,41 @@
                         href="{% url 'brands_filter' brand.name %}">{{ brand.name }}</a></li>
                 {% endfor %}
             </ul>
-        </div>
+        </div> -->
 
         <!-- Right side: Brand-wise cars -->
-        <div class="col-md-9">
-            <h2 class="text-center">Car List</h2>
+        <div class="col-md-12">
+            {% if cars.exists %}
+            {% if cars|length > 1 %}
+            <h2 class="text-center">{{ cars|length }} Cars Found</h2>
+            {% else %}
+            <h2 class="text-center">{{ cars|length }} Car Found</h2>
+            {% endif %}
+            {% else %}
+            <h2 class="text-center">No Cars Found</h2>
+            {% endif %}
+
             <div class="row">
                 {% for car in cars %}
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <div class="card">
                         {% if car.image %}
-                        <img style="height: 200px; object-fit: cover;" src="{{ car.image.url }}" class="card-img-top" alt="{{ car.name }}">
+                        <img style="height: 200px; object-fit: cover;" src="{{ car.image.url }}" class="card-img-top"
+                            alt="{{ car.name }}">
                         {% else %}
-                        <p>No Image Available</p>
+                        <!-- <p>No Image Available</p> -->
+                        <img style="height: 200px; object-fit: cover;" class="card-img-top" alt="No Image Available"></img>
                         {% endif %}
                         <div class="card-body">
-                            <h5 class="card-title"><a href="{% url 'car_detail' car.id %}">{{ car.name }}</a>
-                                </h5>
+                            <h5 class="card-title"><a class="text-decoration-none"
+                                    href="{% url 'car_detail' car.id %}">{{ car.name }}</a>
+                            </h5>
                             <p style="height: 100px;" class="card-text">{{ car.description|truncatewords:15 }}</p>
                             <p class="card-text">Price: ${{ car.price }}</p>
                             <p class="card-text">Brand: {{ car.brand.name }}</p>
-                            <!-- <a href="#" class="btn btn-primary">Buy Now</a> -->
+                            <div class="text-center">
+                                <a href="{% url 'car_detail' car.id %}" class="btn btn-primary">View Details</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -63,4 +102,6 @@
         </div>
     </div>
 </div>
+
+
 {% endblock %}

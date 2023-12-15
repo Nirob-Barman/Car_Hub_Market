@@ -1,8 +1,69 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container text-center">
-    <h1>Home</h1>
-    <p>Welcome to my website!</p>
+<div class="container">
+    <div class="d-flex justify-content-center flex-wrap pt-3 align-items-center mb-3">
+        <div class="col-6">
+            <h1 class="h2 text-center">Welcome To Car Hub Market</h1>
+            <p>
+                Discover a world of automotive excellence at Car Hub Market, your one-stop destination for premium cars.
+                Explore a curated collection of top-notch brands and find the perfect vehicle that matches your style and
+                preferences.
+                <p>
+                    Whether you're in search of luxury, performance, or reliability, our extensive inventory has something for everyone.
+                    Our commitment to quality and customer satisfaction ensures a seamless car-buying experience. Start your journey
+                    with Car Hub Market today!
+                </p>
+            </p>
+        </div>
+        <div class="col-6">
+            <img src="{% static 'header.jpg' %}" class="img-fluid" alt="">
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <!-- Left side: Brand filter -->
+        <div class="col-md-3">
+            <h2 class="text-center">Brand Filter</h2>
+            <ul class="list-group">
+                <li class="list-group-item"><a class="text-decoration-none" href="{% url 'home' %}">All Brands</a></li>
+                {% for brand in brands %}
+                <li class="list-group-item"><a class="text-decoration-none"
+                        href="{% url 'brands_filter' brand.name %}">{{ brand.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Right side: Brand-wise cars -->
+        <div class="col-md-9">
+            <h2 class="text-center">Car List</h2>
+            <div class="row">
+                {% for car in cars %}
+                <div class="col-md-4 mb-3">
+                    <div class="card">
+                        {% if car.image %}
+                        <img style="height: 200px; object-fit: cover;" src="{{ car.image.url }}" class="card-img-top"
+                            alt="{{ car.name }}">
+                        {% else %}
+                        <p>No Image Available</p>
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title"><a class="text-decoration-none"
+                                    href="{% url 'car_detail' car.id %}">{{ car.name }}</a>
+                            </h5>
+                            <p style="height: 100px;" class="card-text">{{ car.description|truncatewords:15 }}</p>
+                            <p class="card-text">Price: ${{ car.price }}</p>
+                            <p class="card-text">Brand: {{ car.brand.name }}</p>
+                            <a href="{% url 'car_detail' car.id %}"
+                                class="d-flex justify-content-center btn btn-primary">View Details</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="container">

@@ -9,16 +9,25 @@
         <div class="col-md-6 mb-4">
             <div class="card">
                 {% if car.image %}
-                <img src="{{ car.image.url }}" alt="{{ car.name }} Image" class="img-thumbnail">
+                <img style="height: 300px;object-fit: cover;" src="{{ car.image.url }}" alt="{{ car.name }} Image"
+                    class="img-thumbnail">
                 {% else %}
-                <p>No image available.</p>
+                <!-- <p>No image available.</p> -->
+                <img style="height: 300px; object-fit: cover;" class="card-img-top" alt="No Image Available"></img>
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ car.name }}</h5>
-                    <p class="card-text">{{ car.description }}</p>
-                    <p><strong>Brand:</strong> {{ car.brand.name }}</p>
-                    <!-- <p><strong>Quantity:</strong> {{ car.quantity }}</p> -->
-                    <p><strong>Price:</strong> ${{ car.price }}</p>
+                    <p style="height: 100px;" class="card-text">{{ car.description }}</p>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <p><strong>Brand:</strong> {{ car.brand.name }}</p>
+                            <!-- <p><strong>Quantity:</strong> {{ car.quantity }}</p> -->
+                            <p><strong>Price:</strong> ${{ car.price }}</p>
+                        </div>
+                        <div class="d-flex align-items-end">
+                            <a href="{% url 'car_detail' car.id %}" class="btn btn-primary">View Details</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -28,7 +37,7 @@
     <div style="height: 70vh;" class="d-flex justify-content-center align-items-center">
         <h1>No bought cars yet.</h1>
     </div>
-    
+
     {% endif %}
 </div>
 
