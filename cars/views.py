@@ -8,6 +8,9 @@ from django.contrib import messages
 
 
 def add_cars(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+    
     if request.method == 'POST':
         form = forms.CarForm(request.POST)
         if form.is_valid():
