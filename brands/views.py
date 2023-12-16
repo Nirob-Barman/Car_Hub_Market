@@ -9,7 +9,9 @@ def add_brands(request):
         if request.method == 'POST':
             form = forms.BrandForm(request.POST)
             if form.is_valid():
+                # confusion
                 form.instance.user = request.user
+                # form.instance.author = request.user
                 form.save()
                 return redirect('home')
         else:

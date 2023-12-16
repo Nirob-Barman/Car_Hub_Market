@@ -10,12 +10,14 @@ from django.contrib import messages
 def add_cars(request):
     if not request.user.is_authenticated:
         return redirect('login')
-    
+
     if request.method == 'POST':
         form = forms.CarForm(request.POST)
         if form.is_valid():
-            form.instance.user = request.user
-            print(form)
+            # confusion
+            # form.instance.user = request.user
+            form.instance.author = request.user
+            # print(form)
             form.save()
             return redirect('home')
     else:
@@ -70,7 +72,7 @@ def car_detail(request, car_id):
 
     # comments = car.comments.all()
     comments = models.Comment.objects.filter(car=car)
-    
+
     comment_form = forms.CommentForm()
 
     return render(request, 'car_detail.html', {'car': car, 'comments': comments, 'comment_form': comment_form})
