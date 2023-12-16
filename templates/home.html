@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
 <div class="container">
     <div class="d-flex justify-content-center flex-wrap pt-3 align-items-center mb-3">
         <div class="col-6">
@@ -35,7 +36,7 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container text-center mt-3">
     <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
         {% for brand in brands %}
         <input type="radio" class="btn-check" name="btnradio" id="{{ brand.id }}" autocomplete="off" checked>
@@ -43,7 +44,6 @@
         {% endfor %}
     </div>
 </div>
-
 
 
 <div class="container">
@@ -103,5 +103,24 @@
     </div>
 </div>
 
+
+<script>
+    // Get the container element
+    var btnContainer = document.querySelector(".btn-group");
+
+    // Get all buttons with class="btn" inside the container
+    var btns = btnContainer.getElementsByClassName("btn");
+
+    // Loop through the buttons and add the active class to the current/clicked button
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function () {
+            var current = document.querySelector(".btn.active");
+            if (current) {
+                current.classList.remove("active");
+            }
+            this.classList.add("active");
+        });
+    }
+</script>
 
 {% endblock %}
