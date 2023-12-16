@@ -3,6 +3,17 @@
 {% block content %}
 
 <div class="container">
+    <div>
+        {% if messages %}
+        {% for message in messages %}
+        <div style="width: 50%; margin: auto;" class="alert alert-danger alert-{{message.tags}} text-center"
+            role="alert">
+            {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+
     <div class="d-flex justify-content-center flex-wrap pt-3 align-items-center mb-3">
         <div class="col-6">
             <h1 class="h2 text-center">Welcome To Car Hub Market</h1>
@@ -81,7 +92,8 @@
                             alt="{{ car.name }}">
                         {% else %}
                         <!-- <p>No Image Available</p> -->
-                        <img style="height: 200px; object-fit: cover;" class="card-img-top" alt="No Image Available"></img>
+                        <img style="height: 200px; object-fit: cover;" class="card-img-top"
+                            alt="No Image Available"></img>
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title"><a class="text-decoration-none"

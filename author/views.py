@@ -1,3 +1,6 @@
+from typing import Any
+from django.forms.forms import BaseForm
+from django.http.response import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from . import forms
@@ -5,6 +8,17 @@ from cars.models import Car
 from django.contrib.auth import login, authenticate, logout, update_session_auth_hash
 from django.contrib.auth.forms import AuthenticationForm, PasswordChangeForm, SetPasswordForm
 from django.contrib import messages
+
+
+from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.views.generic import CreateView, UpdateView, DetailView, DetailView
+
+from django.urls import reverse_lazy
+from django.contrib.auth.views import LoginView, LogoutView
+
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -47,6 +61,25 @@ def signup(request):
         # return redirect('profile')
 
 
+class UserSignUpView(SuccessMessageMixin, CreateView):
+    form_class = forms.RegisterForm
+    template_name = 'form.html'
+    success_url = reverse_lazy('login')
+    success_message = "Account created successfully"
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Sign Up'
+        context['button_text'] = 'Sign Up'
+        context['button_class'] = 'btn-success'
+        return context
+
+
 def user_login(request):
     if not request.user.is_authenticated:
         if request.method == 'POST':
@@ -74,10 +107,46 @@ def user_login(request):
         # return redirect('profile')
 
 
+class UserLoginView(SuccessMessageMixin, LoginView):
+    template_name = 'form.html'
+
+    def get_success_url(self):
+        return reverse_lazy('privacy_settings')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'Logged In Successfully')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Invalid username or password')
+        return super().form_invalid(form)
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('home')
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Login'
+        context['button_text'] = 'Login'
+        context['button_class'] = 'btn-primary'
+        return context
+
+
 def user_logout(request):
     logout(request)
     messages.info(request, "Logged Out Successfully")
     return redirect('home')
+
+
+class UserLogoutView(LogoutView):
+    next_page = 'home'
+
+    def dispatch(self, request, *args, **kwargs):
+        response = super().dispatch(request, *args, **kwargs)
+        messages.info(self.request, "Logged Out Successfully")
+        return response
 
 
 def password_change(request):
