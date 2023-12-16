@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
+
+{% block title %}
+{% if brandName %}
+{{brandName}}
+{% else %}
+Car Hub Market
+{% endif %}
+
+{% endblock %}
+
 {% block content %}
+
 
 <div class="container">
     <div>
