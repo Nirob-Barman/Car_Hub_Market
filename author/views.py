@@ -12,7 +12,8 @@ from django.contrib import messages
 
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView, UpdateView, DetailView, DetailView, View
+from django.views.generic import CreateView, UpdateView, DetailView, DetailView
+from django.views import View
 
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
@@ -148,7 +149,7 @@ def user_logout(request):
 #         messages.info(self.request, "Logged Out Successfully")
 #         return response
 
-class UserLogOutView(View):
+class UserLogoutView(View):
 
     def get(self, request):
         logout(request)
