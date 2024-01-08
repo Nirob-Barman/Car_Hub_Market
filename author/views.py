@@ -12,7 +12,7 @@ from django.contrib import messages
 
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
-from django.views.generic import CreateView, UpdateView, DetailView, DetailView
+from django.views.generic import CreateView, UpdateView, DetailView, DetailView, View
 
 from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView
@@ -140,13 +140,20 @@ def user_logout(request):
     return redirect('home')
 
 
-class UserLogoutView(LogoutView):
-    next_page = 'home'
+# class UserLogoutView(LogoutView):
+#     next_page = 'home'
 
-    def dispatch(self, request, *args, **kwargs):
-        response = super().dispatch(request, *args, **kwargs)
-        messages.info(self.request, "Logged Out Successfully")
-        return response
+#     def dispatch(self, request, *args, **kwargs):
+#         response = super().dispatch(request, *args, **kwargs)
+#         messages.info(self.request, "Logged Out Successfully")
+#         return response
+
+class UserLogOutView(View):
+
+    def get(self, request):
+        logout(request)
+        messages.info(request, "Logged Out Successfully")
+        return redirect('home')
 
 
 def password_change(request):
