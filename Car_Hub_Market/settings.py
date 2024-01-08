@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-2gpsuv(j=j5371$l&-9l+_v8mws+ef(mx+++_pzi)yw4pwp*cd
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://*.gitpod.io', 'https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://car-hub-market.onrender.com/', 'https://*.127.0.0.1']
 
 # Application definition
 
