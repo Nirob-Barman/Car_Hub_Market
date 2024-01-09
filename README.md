@@ -12,10 +12,11 @@ This Django project is a Car Dealership Management System. It allows users to ad
 
 ## Getting Started
 1. Clone the repository: `git clone https://github.com/Nirob-Barman/Software-Development-Project.git`
-2. Install dependencies: `pip install -r requirements.txt`
-3. Run migrations: `python manage.py migrate`
-4. Start the development server: `python manage.py runserver`
-5. Visit `http://localhost:8000/` in your web browser.
+2. Navigate to the project directory: `cd Car_Hub_Market`
+3. Install dependencies: `pip install -r requirements.txt`
+4. Run migrations: `python manage.py migrate`
+5. Start the development server: `python manage.py runserver`
+6. Visit `http://localhost:8000/` in your web browser.
 
 ## Project Structure
 - `cars`: Django app for managing cars and comments.
